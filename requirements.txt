@@ -1,0 +1,10 @@
+fake_useragent
+requests
+bs4
+termcolor
+json
+re
+os
+time
+instaloader
+sys
