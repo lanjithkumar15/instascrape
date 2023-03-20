@@ -22,7 +22,7 @@ def check(user):
     print(colored('LINK TO THE INSTAGRAM --->>', 'red'),colored(url,'green'))
     print("\n")
     x = requests.get(url, headers=head)
-    print(x.status_code)
+    #print(x.status_code)
     soup = BeautifulSoup(x.content, 'html.parser')
     meta = soup.find('title')
     meta = meta.get_text()
@@ -50,6 +50,7 @@ def followers(user):
     if meta1:
         content = meta1.get('content')
         counts = re.findall(r'(\d+(?:\.\d+)?(?:K|M)?)\s(Followers|Following|Posts)', content)
+        print("\n")
         print(colored("DETAILS OF "+user+":", 'red'))
         for count in counts:
             print("\n")
@@ -59,11 +60,11 @@ def json_create(user):
     us = user
     url = 'https://www.instagram.com/'+us+'/?hl=en'
     response2 = requests.get(url, headers=head)
-    print(response2.status_code)
+    #print(response2.status_code)
     soup = BeautifulSoup(response2.text, 'html.parser')
     script = soup.find('script', attrs={'type': 'application/ld+json'})
     json_data = json.loads(script.contents[0])
-    print(json_data)
+    #print(json_data)
     if os.path.exists(us):
         os.system("rm -rf"+" "+us)
         os.mkdir(us)
@@ -84,7 +85,7 @@ def bio(user):
         data = json.load(R)
         des = data['description']
         print("\n")
-        print(colored("BIO OF"+" "+us,'red')+":"+"\n\n"+" "+colored(des,'blue'))
+        print(colored("BIO OF"+" "+us,'red', attrs=['bold'])+":"+"\n\n"+" "+colored(des,'blue', attrs=['bold']))
     ####
 def image_download():
     with open('output.json', 'r') as f:
@@ -95,16 +96,17 @@ def image_download():
             f.write(response3.content)
             pwd = os.getcwd()
             print("\n")
-            print(colored("IMAGE SAVED AT --> "+pwd, 'green'))
+            print(colored("IMAGE SAVED AT --> "+pwd, 'green', attrs=['bold']))
+            print("\n")
             ###
 def isprivateornot(user):
     loader = instaloader.Instaloader()
     profile_name = user
     profile = instaloader.Profile.from_username(loader.context, profile_name)
     if profile.is_private:
-        print(colored("\n**The profile"+" "+user+" "+"is private\n", 'red'))
+        print(colored("\n**The profile"+" "+user+" "+"is private\n", 'red', attrs=['bold']))
     else:
-        print(colored("\n**The profile"+" "+user+" "+"is public\n", 'green'))
+        print(colored("\n**The profile"+" "+user+" "+"is public\n", 'green', attrs=['bold']))
         ###
 def isverify(user):
     loader = instaloader.Instaloader()
@@ -123,15 +125,21 @@ def isbussiness(user):
         else:
             print(colored("\n"+"The account is Bussiness Account"+"\n", 'green', attrs=['bold']))
           ###
+def otherurl(user):
+    with open('output.json', 'r') as l:
+        othurl = json.load(l)
+        othur = othurl['author']['sameAs'] 
+        print(colored("OTHER URL'S IN "+user+"-->"+othur, 'green', attrs=['bold']))
+        ###
 if __name__ == '__main__':
     fu = input(colored('ENTER AN INSTAGRAM ID--->', 'yellow', attrs=['bold']))
     print("\n")
     check(user = fu)
-    #isprivateornot(user = fu)
+    isprivateornot(user = fu)
     followers(user = fu)
     json_create(user = fu)
     bio(user = fu)
     image_download()
-    #isverify(user=fu)
+    isverify(user=fu)
     isbussiness(user=fu)
-
+    otherurl(user=fu)
