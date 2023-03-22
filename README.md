@@ -1,3 +1,3 @@
 # instascrape
-instagram scarpe script made for osint reserch
+instagram scrape script made for osint reaserch
 <p> Hi it is an simple python project to </p>
