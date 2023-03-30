@@ -6,3 +6,4 @@ How to run:
 <p>STEP 2: cd instascrape</p>
 <p>STEP 3: pip3 install -r requirements.txt</p>
 <p>STEP 4: python3 instascrape.py</p>
+<p>more features will added soon</p>
