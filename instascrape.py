@@ -7,13 +7,21 @@ import re
 import os
 import time
 import instaloader
-import banner
 import sys
+import pyfiglet as pyg
 
 ua = UserAgent()
 ua['google chrome']
 head = {'User-Agnet':ua.random}
 
+def instascrape():
+    text = "INSTASCRAPE"
+    by = "BY:"
+    name = "crazyoh123"
+    print(colored(pyg.figlet_format(text, font="xsbook",direction="left",justify="auto",width=100), 'red')+"\n")
+    print(colored(by, 'green')+"\n")
+    print(colored(name+"//", 'green')+"\n")
+    ###
 def check(user):
     ua['google chrome']
     head = {'User-Agent':ua.random }
@@ -96,7 +104,7 @@ def image_download():
             f.write(response3.content)
             pwd = os.getcwd()
             print("\n")
-            print(colored("IMAGE SAVED AT --> "+pwd, 'green', attrs=['bold']))
+            print(colored("PROFILE PICTURE SAVED AT --> "+pwd, 'green', attrs=['bold']))
             print("\n")
             ###
 def isprivateornot(user):
@@ -104,16 +112,20 @@ def isprivateornot(user):
     profile_name = user
     profile = instaloader.Profile.from_username(loader.context, profile_name)
     if profile.is_private:
+        print("\n")
         print(colored("\n**The profile"+" "+user+" "+"is private\n", 'red', attrs=['bold']))
     else:
+        print("\n")
         print(colored("\n**The profile"+" "+user+" "+"is public\n", 'green', attrs=['bold']))
         ###
 def isverify(user):
     loader = instaloader.Instaloader()
     profile = instaloader.Profile.from_username(loader.context, user)
     if profile.is_verified:
+        print("\n")
         print(colored("\n"+"The account is verified", 'green', attrs=['bold']))
     else:
+        print("\n")
         print(colored("\n"+"The account is not verified", 'red', attrs=['bold']))
         ###
 def isbussiness(user):
@@ -121,19 +133,20 @@ def isbussiness(user):
         business = json.load(f)
         bus = business['author']['@type']
         if bus == 'Person':
+            print("\n")
             print(colored("\n"+"The account is Personal Account"+"\n", 'red', attrs=['bold']))
         else:
+            print("\n")
             print(colored("\n"+"The account is Bussiness Account"+"\n", 'green', attrs=['bold']))
           ###
 def otherurl(user):
     with open('output.json', 'r') as l:
         othurl = json.load(l)
         othur = othurl['author']['sameAs'] 
+        print("\n")
         print(colored("OTHER URL'S IN "+user+"-->"+othur, 'green', attrs=['bold']))
         ###
-if __name__ == '__main__':
-    fu = input(colored('ENTER AN INSTAGRAM ID--->', 'yellow', attrs=['bold']))
-    print("\n")
+def startscrape(user):
     check(user = fu)
     isprivateornot(user = fu)
     followers(user = fu)
@@ -143,3 +156,9 @@ if __name__ == '__main__':
     isverify(user=fu)
     isbussiness(user=fu)
     otherurl(user=fu)
+    ###
+if __name__ == '__main__':
+    instascrape()
+    fu = input(colored('ENTER AN INSTAGRAM ID--->', 'yellow', attrs=['bold']))
+    print("\n")
+    startscrape(user = fu)
