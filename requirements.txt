@@ -3,7 +3,7 @@ brotlicffi==1.0.9.2
 cchardet==2.1.7
 chardet==5.1.0
 colorama==0.4.6
-cryptography==40.0.1
+cryptography>=41.0.4
 Cython==0.29.34
 dl==0.1.0
 html5lib==1.1
